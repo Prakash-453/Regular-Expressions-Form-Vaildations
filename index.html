@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form-Vadilation</title>
+    <style>
+      label {
+        display: flex;
+        margin-bottom: 5px;
+        color: black;
+      }
+
+      input {
+        width: 200px;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"], input[type="email"], input[type="number"], input[type="password"] {
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      input[type="submit"] {
+        padding: 10px;
+        background-color: chartreuse;
+        color: crimson;
+        font-size: large;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      body {
+        background-color: aquamarine;
+      }
+
+      span {
+        color: red;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1 style="color: coral;">Form-Vaildation</h1>
+
+    <form id="form">
+
+      <label for="rollno">RollNo : </label>
+      <input type="text" id="rollno" /><br />
+      <span id="RollNo" style="display: none">*RollNo pattern should be in this form : 202N1AXXXX</span><br />
+
+      <label for="name">Name : </label>
+      <input type="text" id="name" /><br />
+      <span id="Name" style="display: none">*Username contain atleast one uppercase and lowercase letter </span><br />
+
+      <label for="mobileno">Mobile Number : </label>
+      <input type="text" id="mobileno" /><br />
+      <span id="MobileNo" style="display: none">*Mobile Number should exactly contain 10 Digits</span><br />
+
+      <label for="email">Email-ID : </label>
+      <input type="email" id="email" /><br />
+      <span id="Email" style="display: none">*It must contain an .@ symbol.</span><br />
+
+      <label for="pswd">Password : </label>
+      <input type="password" id="pswd" /><br />
+      <span id="Password" style="display: none">*Password must be at least 8 characters<br />*It should contain atleast one lowercase letter, one uppercase letter, one digit, and one special character</span><br />
+
+      <input type="submit" />
+    </form>
+
+    <script>
+      let form = document.getElementById("form");
+      let rollno = document.getElementById("rollno");
+      let name = document.getElementById("name");
+      let mobileno = document.getElementById("mobileno");
+      let email = document.getElementById('email')
+      let pswd = document.getElementById("pswd");
+
+      let RollNo = document.getElementById("RollNo");
+      let Name = document.getElementById("Name");
+      let MobileNo = document.getElementById("MobileNo");
+      let Email = document.getElementById('Email')
+      let Password = document.getElementById("Password");
+
+      let Roll_No_Pattern = /^202N1A[0-9]{4}$/;
+      let Name_Pattern = /(?=.*[a-z])(?=.*[A-Z])/;
+      let MobileNo_Pattern = /^[0-9]{10}$/;
+      let Email_Pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+      let Password_Pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@&!$*]).{8,}$/;
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        let isVaild=true
+
+        if (!Roll_No_Pattern.test(rollno.value)) {
+          RollNo.style.display = "block";
+          rollno.style.border = "2px solid red";
+          isVaild=false
+        }
+
+        if (!Name_Pattern.test(name.value)) {
+          Name.style.display = "block";
+          name.style.border = "2px solid red";
+          isVaild=false
+        }
+
+        if (!MobileNo_Pattern.test(mobileno.value)) {
+          MobileNo.style.display = "block";
+          mobileno.style.border = "2px solid red";
+          isVaild=false
+        }
+
+        if (!Email_Pattern.test(email.value)) {
+          Email.style.display = "block";
+          email.style.border = "2px solid red";
+          isVaild=false
+        }
+
+        if (!Password_Pattern.test(pswd.value)) {
+          Password.style.display = "block";
+          pswd.style.border = "2px solid red";
+          isVaild=false
+        }
+
+        if(isVaild)
+        {
+            alert('Form Submitted SuccesFully')
+        }
+      });
+    </script>
+  </body>
+</html>
